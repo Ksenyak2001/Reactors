@@ -1,5 +1,4 @@
 -
-  id: "1"
   type: "MKER"
   burnup: !!float 30
   kpd: !!float 0.352
@@ -9,7 +8,6 @@
   life_time: !!float  50
   first_load: !!float 192   
 -
-   id: "2"
    type: "RBMK"
    burnup: !!float 25
    kpd: !!float 0.3125
@@ -19,7 +17,6 @@
    life_time: !!float  40
    first_load: !!float 192
 -
-   id: "3"
    type: "VVER-1200"
    burnup: !!float  40
    kpd: !!float  0.33
@@ -29,7 +26,6 @@
    life_time: !!float  60
    first_load: !!float  79.84
 -
-   id: "4"
    type: "AP1000"
    burnup: !!float  43.20
    kpd: !!float  0.339
@@ -39,7 +35,6 @@
    life_time: !!float  60
    first_load: !!float  93.65
 -
-   id: "5"
    type: "BWR"
    burnup: !!float  45
    kpd: !!float  0.343
@@ -49,7 +44,6 @@
    life_time: !!float  60    
    first_load: !!float  128.00
 -
-   id: "6"
    type: "ABWR"
    burnup: !!float  46.40
    kpd: !!float  0.3655
@@ -59,7 +53,6 @@
    life_time: !!float  60
    first_load: !!float  128.00
 -
-   id: "7"
    type: "EPR"
    burnup: !!float  36.10
    kpd: !!float  0.3515
@@ -69,7 +62,6 @@
    life_time: !!float  60
    first_load: !!float  140.66
 -
-   id: "8"
    type: "MAGNOX"
    burnup: !!float  4.5
    kpd: !!float  0.23
@@ -79,7 +71,6 @@
    life_time: !!float  60
    first_load: !!float  120
 -
-   id: "9"
    type: "BN"
    burnup: !!float  140
    kpd: !!float  42.05
@@ -89,7 +80,6 @@
    life_time: !!float  60
    first_load: !!float  50.4
 -
-   id: "10"
    type: "PWR"
    burnup: !!float  42.0
    kpd: !!float  34.0
@@ -99,7 +89,6 @@
    life_time: !!float  50
    first_load: !!float  74.0
 -
-   id: "11"
    type: "CPR-1000"
    burnup: !!float  52.0
    kpd: !!float  35.1
@@ -109,7 +98,6 @@
    life_time: !!float  40
    first_load: !!float  77.0
 -
-   id: "12"
    type: "CANDU"
    burnup: !!float  8
    kpd: !!float  0.30
@@ -119,7 +107,6 @@
    life_time: !!float  60
    first_load: !!float  38.9
 -
-   id: "13"
    type: "PHWR"
    burnup: !!float  8
    kpd: !!float  0.30
@@ -129,7 +116,6 @@
    life_time: !!float  60
    first_load: !!float  38.9
 -
-   id: "14"
    type: "KLT-40"
    burnup: !!float  42
    kpd: !!float  0.30
@@ -139,7 +125,6 @@
    life_time: !!float  36
    first_load: !!float  0.007
 -
-   id: "15"
    type: "PWR_TEST"
    burnup: !!float  40
    kpd: !!float  0.33

@@ -151,11 +151,11 @@ public class Reactor {
         rnode.add(new DefaultMutableTreeNode("Выгорание [использование топлива]: " + this.burnup));
         rnode.add(new DefaultMutableTreeNode("КПД: " + this.kpd));
         rnode.add(new DefaultMutableTreeNode("Обогащение: " + this.enrichment));
-        rnode.add(new DefaultMutableTreeNode("Теплоёмкость: " + this.termal_capacity));
+        rnode.add(new DefaultMutableTreeNode("Тепловая мощность: " + this.termal_capacity));
         rnode.add(new DefaultMutableTreeNode("Электрическая мощность: " + this.electrical_capacity));
         rnode.add(new DefaultMutableTreeNode("Время эксплуатации: " + this.life_time));
-        rnode.add(new DefaultMutableTreeNode("Первая загрузка: " + this.first_load));
-        rnode.add(new DefaultMutableTreeNode("Файл загрузки: " + this.source));
+        rnode.add(new DefaultMutableTreeNode("Первая загрузка U продукта: " + this.first_load));
+        rnode.add(new DefaultMutableTreeNode("Тип файла загрузки: " + this.source));
         
         return rnode;
     }
