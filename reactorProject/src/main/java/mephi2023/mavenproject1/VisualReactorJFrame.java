@@ -4,9 +4,20 @@
  */
 package mephi2023.mavenproject1;
 
+import mephi2023.mavenproject1.workWithCollection.CollectionManipulation;
+import mephi2023.mavenproject1.workWithBD.QuariesStorage;
+import mephi2023.mavenproject1.workWithBD.ConnectBD;
+import mephi2023.mavenproject1.workWithBD.BDManipulation;
+import mephi2023.mavenproject1.workWithTable.Exemplar;
+import mephi2023.mavenproject1.workWithTable.TableManipulation;
+import mephi2023.mavenproject1.readers.chainOfResponsibility.BuildChain;
+import mephi2023.mavenproject1.readers.ReaderTXT;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -20,17 +31,33 @@ import org.xml.sax.SAXException;
  * @author Kseny
  */
 public class VisualReactorJFrame extends javax.swing.JFrame {
-    private final DataManipulation dataManipulation;
+    private final CollectionManipulation cm;
+    private final ConnectBD cbd;
     /**
      * Creates new form VisualReactorJFrame
      */
     public VisualReactorJFrame() {
         super("Сводка о реакторах");
         initComponents();
-        setSize(600, 400);
+        setSize(1200, 680);
         reactorTypeFileChooser.setVisible(false);
-        dataManipulation = new DataManipulation();
+        cm = new CollectionManipulation();
+        cbd = new ConnectBD();
         fileLabel.setText("файл не выбран");
+        QuariesStorage qs = new QuariesStorage();
+        reactorTypeFileChooser.setCurrentDirectory(new File(".\\resources\\"));
+        try {
+            Connection conn = cbd.getConnection();
+            if (!BDManipulation.checkTables(conn, QuariesStorage.getQueryFindUnitTable())){
+                instruction1Label.setText("1. Необходимо создать базу данных.");
+            } else {
+                instruction1Label.setText("1. База данных создана и заполнена. Можно перейти к шагу 5.");
+            }
+            exceptionLabel.setText("");
+        } catch (Exception ex) {
+            instruction1Label.setText("1. Необходимо создать базу данных.");
+            //Logger.getLogger(VisualReactorJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -50,6 +77,25 @@ public class VisualReactorJFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         reactorTree = new javax.swing.JTree();
         fileLabel = new javax.swing.JLabel();
+        createBDButton = new javax.swing.JButton();
+        fillBDButton = new javax.swing.JButton();
+        deleteBDButton = new javax.swing.JButton();
+        queriesButton = new javax.swing.JButton();
+        countCompanyReactorButton = new javax.swing.JButton();
+        countRegionReactorButton = new javax.swing.JButton();
+        countCountryReactorButton = new javax.swing.JButton();
+        countReactorsButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        fuelTable = new javax.swing.JTable();
+        infoTotalFuelLabel = new javax.swing.JLabel();
+        totalFuelLabel = new javax.swing.JLabel();
+        instruction1Label = new javax.swing.JLabel();
+        instruction3Label = new javax.swing.JLabel();
+        instruction5Label = new javax.swing.JLabel();
+        instruction2Label = new javax.swing.JLabel();
+        instruction4Label = new javax.swing.JLabel();
+        instructionLabel = new javax.swing.JLabel();
+        exceptionLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 400));
@@ -90,57 +136,230 @@ public class VisualReactorJFrame extends javax.swing.JFrame {
         fileLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         fileLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        createBDButton.setText("создать БД");
+        createBDButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createBDButtonActionPerformed(evt);
+            }
+        });
+
+        fillBDButton.setText("заполнить БД");
+        fillBDButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fillBDButtonActionPerformed(evt);
+            }
+        });
+
+        deleteBDButton.setText("удалить БД");
+        deleteBDButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBDButtonActionPerformed(evt);
+            }
+        });
+
+        queriesButton.setText("выполнить запросы");
+        queriesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                queriesButtonActionPerformed(evt);
+            }
+        });
+
+        countCompanyReactorButton.setText("расчёт по компаниям");
+        countCompanyReactorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                countCompanyReactorButtonActionPerformed(evt);
+            }
+        });
+
+        countRegionReactorButton.setText("расчёт по регионам");
+        countRegionReactorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                countRegionReactorButtonActionPerformed(evt);
+            }
+        });
+
+        countCountryReactorButton.setText("расчёт по странам");
+        countCountryReactorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                countCountryReactorButtonActionPerformed(evt);
+            }
+        });
+
+        countReactorsButton.setText("расчёт по реакторам");
+        countReactorsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                countReactorsButtonActionPerformed(evt);
+            }
+        });
+
+        fuelTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Название объекта", "Ежегодное потребление топлива"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(fuelTable);
+        if (fuelTable.getColumnModel().getColumnCount() > 0) {
+            fuelTable.getColumnModel().getColumn(0).setResizable(false);
+            fuelTable.getColumnModel().getColumn(1).setResizable(false);
+        }
+
+        infoTotalFuelLabel.setText("Всего потреблено :");
+
+        instruction1Label.setText("1. База данных создана и заполнена. Можно перейти к шагу 5.");
+
+        instruction3Label.setText("3. Затем выберите файл для считывания дополнительной информации о реакторах, можно выгрузить данную информацию в виде дерева.");
+
+        instruction5Label.setText("5. Выполните расчёт объёма ежегодно потребляемого топлива по различным группировкам (по реакторам, странам, регионам и компаниям).");
+
+        instruction2Label.setText("2. Чтобы создать базу данных нажмите кнопку \"создать БД\".");
+
+        instruction4Label.setText("4. Далее возможно заполнить базу данных.");
+
+        instructionLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        instructionLabel.setText("Инструкция");
+
+        exceptionLabel.setFont(new java.awt.Font("Segoe UI", 3, 10)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(mainLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
+                    .addComponent(instruction4Label)
+                    .addComponent(instruction2Label)
+                    .addComponent(instruction5Label)
+                    .addComponent(instruction3Label)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(chooseFileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fileLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(drawButton, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(60, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(mainLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(chooseFileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(fileLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(createBDButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(countReactorsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(queriesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(fillBDButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(drawButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(deleteBDButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(countRegionReactorButton, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(countCountryReactorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(151, 151, 151)
+                                .addComponent(countCompanyReactorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(infoTotalFuelLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(totalFuelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(instructionLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(instruction1Label, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(exceptionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(reactorTypeFileChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(reactorTypeFileChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(485, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(mainLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(drawButton)
+                                .addComponent(fileLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(chooseFileButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(createBDButton)
+                            .addComponent(fillBDButton)
+                            .addComponent(deleteBDButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(queriesButton)
+                            .addComponent(countRegionReactorButton)
+                            .addComponent(countReactorsButton)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(drawButton)
-                        .addComponent(fileLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(chooseFileButton))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(countCompanyReactorButton)
+                    .addComponent(countCountryReactorButton)
+                    .addComponent(infoTotalFuelLabel)
+                    .addComponent(totalFuelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(instructionLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(instruction1Label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(instruction2Label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(instruction3Label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(instruction4Label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(instruction5Label)
+                .addGap(18, 18, 18)
+                .addComponent(exceptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(34, Short.MAX_VALUE)
-                    .addComponent(reactorTypeFileChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(19, 19, 19)))
+                    .addContainerGap(35, Short.MAX_VALUE)
+                    .addComponent(reactorTypeFileChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(312, 312, 312)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -151,51 +370,171 @@ public class VisualReactorJFrame extends javax.swing.JFrame {
         if (reactorTypeFileChooser.getSelectedFile() != null){
             System.out.println(reactorTypeFileChooser.getSelectedFile());
             String fileName = reactorTypeFileChooser.getSelectedFile().getAbsolutePath();
-            dataManipulation.clearCollections();
-            if(fileName.endsWith("json")){
+            cm.clearCollection();
+            BuildChain bc = new BuildChain();
+            String source = bc.readByChain(fileName, cm.getCollection());
+            fileLabel.setText(source);
+            exceptionLabel.setText("");
+            /*if(fileName.endsWith("json")){
                 try {
-                    dataManipulation.readFromJSON(fileName);
+                    ReaderJSON.read(fileName, cm.getCollection());
                     fileLabel.setText("json");
                 } catch (IOException | ParseException ex) {
                     Logger.getLogger(VisualReactorJFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else if(fileName.endsWith("yml")){
                 try {
-                    dataManipulation.readFromYAML(fileName);
+                    ReaderYAML.read(fileName, cm.getCollection());
                     fileLabel.setText("yaml");
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(VisualReactorJFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else if(fileName.endsWith("xml")){
                 try {
-                    dataManipulation.readFromXML(fileName);
+                    ReaderXML.read(fileName, cm.getCollection());
                     fileLabel.setText("xml");
                 } catch (SAXException | IOException | ParserConfigurationException ex) {
                     Logger.getLogger(VisualReactorJFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }  
+            }  */
         } else{
             System.out.println(":(");
-            
+            fileLabel.setText("выбран некорректный файл");
         }
         reactorTypeFileChooser.setSelectedFile(new File(""));
     }//GEN-LAST:event_reactorTypeFileChooserActionPerformed
 
     private void chooseFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseFileButtonActionPerformed
-        String homeDir = System.getProperty("user.dir")+"\\src\\main\\resources\\";
-        System.out.println(homeDir +"\\src\\main\\resources\\");
+        String homeDir = System.getProperty("user.dir")+".\\resources\\";
+        System.out.println(homeDir +".\\resources\\");
         reactorTypeFileChooser.setCurrentDirectory(new File(homeDir));
         reactorTypeFileChooser.setVisible(true);
         reactorTypeFileChooser.setSize(600, 400);
-        reactorTypeFileChooser.showDialog(null, "Open");
-        
+        reactorTypeFileChooser.showDialog(null, "Open");        
+        exceptionLabel.setText("");
     }//GEN-LAST:event_chooseFileButtonActionPerformed
 
     private void drawButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawButtonActionPerformed
-        // TODO add your handling code here:
-        DefaultMutableTreeNode main = dataManipulation.addInfoToTree();
+        DefaultMutableTreeNode main = cm.addInfoToTree();
         reactorTree.setModel(new DefaultTreeModel(main));
+        exceptionLabel.setText("");
     }//GEN-LAST:event_drawButtonActionPerformed
+
+    private void createBDButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBDButtonActionPerformed
+        String dir = System.getProperty("user.dir");
+        System.out.println(dir);
+        
+        try {
+            Connection conn = cbd.getConnection();
+            String queryDelete = ReaderTXT.read(".\\resources\\deletion.txt");
+            String queryCreate = ReaderTXT.read(".\\resources\\creation.txt");
+            BDManipulation.doQuery(conn, queryDelete, "удалена");
+            BDManipulation.doQuery(conn, queryCreate, "создана");
+            instruction1Label.setText("1. База данных создана. Перейдите к шагу 3.");
+            exceptionLabel.setText("");
+            
+        } catch (SQLException | IOException ex) {
+            exceptionLabel.setText("Ошибка:" + ex.getMessage());
+            //Logger.getLogger(VisualReactorJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_createBDButtonActionPerformed
+
+    private void deleteBDButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBDButtonActionPerformed
+        try {
+            Connection conn = cbd.getConnection();
+            String queryDelete = ReaderTXT.read(".\\resources\\deletion.txt");
+            BDManipulation.doQuery(conn, queryDelete, "удалена");
+            instruction1Label.setText("1. Необходимо создать базу данных.");
+            exceptionLabel.setText("");
+        } catch (SQLException | IOException ex) {
+            exceptionLabel.setText("Ошибка:" + ex.getMessage());
+            //Logger.getLogger(VisualReactorJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_deleteBDButtonActionPerformed
+
+    private void fillBDButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillBDButtonActionPerformed
+        try {
+            Connection conn = cbd.getConnection();
+            String fileName = ".\\resources\\ReactorData.xlsx";
+            if (!cm.getCollection().isEmpty()){
+                exceptionLabel.setText("База данных заполняется...");
+                BDManipulation.fillBd(conn, fileName, cm);
+                instruction1Label.setText("1. База данных создана и заполнена. Можно перейти к шагу 5.");
+                exceptionLabel.setText("");
+            } else {                
+                exceptionLabel.setText("Не хватает данных для заполнения базы, выберите файл.");
+            }           
+        } catch (SQLException | IOException ex) {
+            exceptionLabel.setText("Ошибка:" + ex.getMessage());
+            //Logger.getLogger(VisualReactorJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_fillBDButtonActionPerformed
+
+    private void queriesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_queriesButtonActionPerformed
+
+        try {
+            Connection conn = cbd.getConnection();
+            BDManipulation.checkTables(conn, QuariesStorage.getQueryFindUnitTable());
+            exceptionLabel.setText("");
+            //BDManipulation.doQueries(conn, cm);
+        } catch (Exception ex) {
+            exceptionLabel.setText("Ошибка:" + ex.getMessage());
+            //Logger.getLogger(VisualReactorJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_queriesButtonActionPerformed
+
+    private void countReactorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_countReactorsButtonActionPerformed
+        try {
+            Connection conn = cbd.getConnection();
+            ArrayList<Exemplar> parameters = BDManipulation.getAnnuelFuelReactor(conn, QuariesStorage.getQueryEachReactor());
+            TableManipulation.drawModel(parameters, "Реактор", fuelTable);
+            totalFuelLabel.setText(String.valueOf(BDManipulation.getSumAnnuelFuelReactor(conn, QuariesStorage.getQuerySumReactor())));
+            exceptionLabel.setText("");
+        } catch (SQLException ex) {
+            exceptionLabel.setText("Ошибка:" + ex.getMessage());
+            //Logger.getLogger(VisualReactorJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_countReactorsButtonActionPerformed
+
+    private void countCountryReactorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_countCountryReactorButtonActionPerformed
+        try {
+            Connection conn = cbd.getConnection();
+            ArrayList<Exemplar> parameters = BDManipulation.getAnnuelFuelReactor(conn, QuariesStorage.getQueryCountryReactor());
+            TableManipulation.drawModel(parameters, "Страна", fuelTable);
+            totalFuelLabel.setText(String.valueOf(BDManipulation.getSumAnnuelFuelReactor(conn, QuariesStorage.getQuerySumReactor())));
+            exceptionLabel.setText("");
+        } catch (SQLException ex) {
+            exceptionLabel.setText("Ошибка:" + ex.getMessage());
+            //Logger.getLogger(VisualReactorJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_countCountryReactorButtonActionPerformed
+
+    private void countRegionReactorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_countRegionReactorButtonActionPerformed
+        try {
+            Connection conn = cbd.getConnection();
+            ArrayList<Exemplar> parameters = BDManipulation.getAnnuelFuelReactor(conn, QuariesStorage.getQueryRegionReactor());
+            TableManipulation.drawModel(parameters, "Регион", fuelTable);
+            totalFuelLabel.setText(String.valueOf(BDManipulation.getSumAnnuelFuelReactor(conn, QuariesStorage.getQuerySumReactor())));
+            exceptionLabel.setText("");
+        } catch (SQLException ex) {
+            exceptionLabel.setText("Ошибка:" + ex.getMessage());
+            //Logger.getLogger(VisualReactorJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_countRegionReactorButtonActionPerformed
+
+    private void countCompanyReactorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_countCompanyReactorButtonActionPerformed
+        try {
+            Connection conn = cbd.getConnection();
+            ArrayList<Exemplar> parameters = BDManipulation.getAnnuelFuelReactor(conn, QuariesStorage.getQueryCompanyReactor());
+            TableManipulation.drawModel(parameters, "Компания", fuelTable);
+            totalFuelLabel.setText(BDManipulation.getSumAnnuelFuelReactor(conn, QuariesStorage.getQuerySumReactor()));
+            exceptionLabel.setText("");
+        } catch (SQLException ex) {
+            exceptionLabel.setText("Ошибка:" + ex.getMessage());
+            //Logger.getLogger(VisualReactorJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_countCompanyReactorButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,12 +542,31 @@ public class VisualReactorJFrame extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton chooseFileButton;
+    private javax.swing.JButton countCompanyReactorButton;
+    private javax.swing.JButton countCountryReactorButton;
+    private javax.swing.JButton countReactorsButton;
+    private javax.swing.JButton countRegionReactorButton;
+    private javax.swing.JButton createBDButton;
+    private javax.swing.JButton deleteBDButton;
     private javax.swing.JButton drawButton;
+    private javax.swing.JLabel exceptionLabel;
     private javax.swing.JLabel fileLabel;
+    private javax.swing.JButton fillBDButton;
+    private javax.swing.JTable fuelTable;
+    private javax.swing.JLabel infoTotalFuelLabel;
+    private javax.swing.JLabel instruction1Label;
+    private javax.swing.JLabel instruction2Label;
+    private javax.swing.JLabel instruction3Label;
+    private javax.swing.JLabel instruction4Label;
+    private javax.swing.JLabel instruction5Label;
+    private javax.swing.JLabel instructionLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel mainLabel;
+    private javax.swing.JButton queriesButton;
     private javax.swing.JTree reactorTree;
     private javax.swing.JFileChooser reactorTypeFileChooser;
+    private javax.swing.JLabel totalFuelLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -26,12 +26,18 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -42,25 +48,71 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="1" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="mainLabel" max="32767" attributes="0"/>
-                      <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="instruction4Label" min="-2" max="-2" attributes="0"/>
+                      <Component id="instruction2Label" min="-2" max="-2" attributes="0"/>
+                      <Component id="instruction5Label" min="-2" max="-2" attributes="0"/>
+                      <Component id="instruction3Label" min="-2" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="chooseFileButton" min="-2" pref="190" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="fileLabel" pref="128" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="drawButton" min="-2" pref="190" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="mainLabel" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="chooseFileButton" min="-2" pref="190" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="fileLabel" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="createBDButton" max="32767" attributes="0"/>
+                                              <Component id="countReactorsButton" pref="190" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="queriesButton" max="32767" attributes="0"/>
+                                              <Component id="fillBDButton" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="drawButton" max="32767" attributes="0"/>
+                                      <Component id="deleteBDButton" max="32767" attributes="0"/>
+                                      <Component id="countRegionReactorButton" pref="190" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="countCountryReactorButton" min="-2" pref="190" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="151" max="-2" attributes="0"/>
+                                  <Component id="countCompanyReactorButton" min="-2" pref="190" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="infoTotalFuelLabel" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="totalFuelLabel" min="-2" pref="219" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
+                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="instructionLabel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="instruction1Label" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="exceptionLabel" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="60" max="32767" attributes="0"/>
+                  <EmptySpace pref="43" max="32767" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="reactorTypeFileChooser" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="reactorTypeFileChooser" min="-2" pref="553" max="-2" attributes="0"/>
+                      <EmptySpace pref="485" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -70,22 +122,60 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="mainLabel" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="280" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="drawButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="fileLabel" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="jScrollPane1" min="-2" pref="280" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="drawButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fileLabel" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="chooseFileButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="createBDButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fillBDButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="deleteBDButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="queriesButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="countRegionReactorButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="countReactorsButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <Component id="chooseFileButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="55" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="countCompanyReactorButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="countCountryReactorButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="infoTotalFuelLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="totalFuelLabel" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="instructionLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="instruction1Label" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="instruction2Label" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="instruction3Label" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="instruction4Label" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="instruction5Label" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="exceptionLabel" min="-2" pref="21" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="34" max="32767" attributes="0"/>
-                      <Component id="reactorTypeFileChooser" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                      <EmptySpace pref="35" max="32767" attributes="0"/>
+                      <Component id="reactorTypeFileChooser" min="-2" pref="278" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="312" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -159,6 +249,153 @@
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                 <LineBorder/>
               </Border>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="createBDButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x441;&#x43e;&#x437;&#x434;&#x430;&#x442;&#x44c; &#x411;&#x414;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createBDButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="fillBDButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x437;&#x430;&#x43f;&#x43e;&#x43b;&#x43d;&#x438;&#x442;&#x44c; &#x411;&#x414;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fillBDButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="deleteBDButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x443;&#x434;&#x430;&#x43b;&#x438;&#x442;&#x44c; &#x411;&#x414;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteBDButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="queriesButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x432;&#x44b;&#x43f;&#x43e;&#x43b;&#x43d;&#x438;&#x442;&#x44c; &#x437;&#x430;&#x43f;&#x440;&#x43e;&#x441;&#x44b;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="queriesButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="countCompanyReactorButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x440;&#x430;&#x441;&#x447;&#x451;&#x442; &#x43f;&#x43e; &#x43a;&#x43e;&#x43c;&#x43f;&#x430;&#x43d;&#x438;&#x44f;&#x43c;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="countCompanyReactorButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="countRegionReactorButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x440;&#x430;&#x441;&#x447;&#x451;&#x442; &#x43f;&#x43e; &#x440;&#x435;&#x433;&#x438;&#x43e;&#x43d;&#x430;&#x43c;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="countRegionReactorButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="countCountryReactorButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x440;&#x430;&#x441;&#x447;&#x451;&#x442; &#x43f;&#x43e; &#x441;&#x442;&#x440;&#x430;&#x43d;&#x430;&#x43c;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="countCountryReactorButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="countReactorsButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x440;&#x430;&#x441;&#x447;&#x451;&#x442; &#x43f;&#x43e; &#x440;&#x435;&#x430;&#x43a;&#x442;&#x43e;&#x440;&#x430;&#x43c;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="countReactorsButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTable" name="fuelTable">
+              <Properties>
+                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                  <Table columnCount="2" rowCount="0">
+                    <Column editable="false" title="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435; &#x43e;&#x431;&#x44a;&#x435;&#x43a;&#x442;&#x430;" type="java.lang.String"/>
+                    <Column editable="false" title="&#x415;&#x436;&#x435;&#x433;&#x43e;&#x434;&#x43d;&#x43e;&#x435; &#x43f;&#x43e;&#x442;&#x440;&#x435;&#x431;&#x43b;&#x435;&#x43d;&#x438;&#x435; &#x442;&#x43e;&#x43f;&#x43b;&#x438;&#x432;&#x430;" type="java.lang.Double"/>
+                  </Table>
+                </Property>
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                  <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                  </TableColumnModel>
+                </Property>
+                <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                  <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                </Property>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JLabel" name="infoTotalFuelLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x412;&#x441;&#x435;&#x433;&#x43e; &#x43f;&#x43e;&#x442;&#x440;&#x435;&#x431;&#x43b;&#x435;&#x43d;&#x43e; :"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="totalFuelLabel">
+        </Component>
+        <Component class="javax.swing.JLabel" name="instruction1Label">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="1. &#x411;&#x430;&#x437;&#x430; &#x434;&#x430;&#x43d;&#x43d;&#x44b;&#x445; &#x441;&#x43e;&#x437;&#x434;&#x430;&#x43d;&#x430; &#x438; &#x437;&#x430;&#x43f;&#x43e;&#x43b;&#x43d;&#x435;&#x43d;&#x430;. &#x41c;&#x43e;&#x436;&#x43d;&#x43e; &#x43f;&#x435;&#x440;&#x435;&#x439;&#x442;&#x438; &#x43a; &#x448;&#x430;&#x433;&#x443; 5."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="instruction3Label">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="3. &#x417;&#x430;&#x442;&#x435;&#x43c; &#x432;&#x44b;&#x431;&#x435;&#x440;&#x438;&#x442;&#x435; &#x444;&#x430;&#x439;&#x43b; &#x434;&#x43b;&#x44f; &#x441;&#x447;&#x438;&#x442;&#x44b;&#x432;&#x430;&#x43d;&#x438;&#x44f; &#x434;&#x43e;&#x43f;&#x43e;&#x43b;&#x43d;&#x438;&#x442;&#x435;&#x43b;&#x44c;&#x43d;&#x43e;&#x439; &#x438;&#x43d;&#x444;&#x43e;&#x440;&#x43c;&#x430;&#x446;&#x438;&#x438; &#x43e; &#x440;&#x435;&#x430;&#x43a;&#x442;&#x43e;&#x440;&#x430;&#x445;, &#x43c;&#x43e;&#x436;&#x43d;&#x43e; &#x432;&#x44b;&#x433;&#x440;&#x443;&#x437;&#x438;&#x442;&#x44c; &#x434;&#x430;&#x43d;&#x43d;&#x443;&#x44e; &#x438;&#x43d;&#x444;&#x43e;&#x440;&#x43c;&#x430;&#x446;&#x438;&#x44e; &#x432; &#x432;&#x438;&#x434;&#x435; &#x434;&#x435;&#x440;&#x435;&#x432;&#x430;."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="instruction5Label">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="5. &#x412;&#x44b;&#x43f;&#x43e;&#x43b;&#x43d;&#x438;&#x442;&#x435; &#x440;&#x430;&#x441;&#x447;&#x451;&#x442; &#x43e;&#x431;&#x44a;&#x451;&#x43c;&#x430; &#x435;&#x436;&#x435;&#x433;&#x43e;&#x434;&#x43d;&#x43e; &#x43f;&#x43e;&#x442;&#x440;&#x435;&#x431;&#x43b;&#x44f;&#x435;&#x43c;&#x43e;&#x433;&#x43e; &#x442;&#x43e;&#x43f;&#x43b;&#x438;&#x432;&#x430; &#x43f;&#x43e; &#x440;&#x430;&#x437;&#x43b;&#x438;&#x447;&#x43d;&#x44b;&#x43c; &#x433;&#x440;&#x443;&#x43f;&#x43f;&#x438;&#x440;&#x43e;&#x432;&#x43a;&#x430;&#x43c; (&#x43f;&#x43e; &#x440;&#x435;&#x430;&#x43a;&#x442;&#x43e;&#x440;&#x430;&#x43c;, &#x441;&#x442;&#x440;&#x430;&#x43d;&#x430;&#x43c;, &#x440;&#x435;&#x433;&#x438;&#x43e;&#x43d;&#x430;&#x43c; &#x438; &#x43a;&#x43e;&#x43c;&#x43f;&#x430;&#x43d;&#x438;&#x44f;&#x43c;)."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="instruction2Label">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="2. &#x427;&#x442;&#x43e;&#x431;&#x44b; &#x441;&#x43e;&#x437;&#x434;&#x430;&#x442;&#x44c; &#x431;&#x430;&#x437;&#x443; &#x434;&#x430;&#x43d;&#x43d;&#x44b;&#x445; &#x43d;&#x430;&#x436;&#x43c;&#x438;&#x442;&#x435; &#x43a;&#x43d;&#x43e;&#x43f;&#x43a;&#x443; &quot;&#x441;&#x43e;&#x437;&#x434;&#x430;&#x442;&#x44c; &#x411;&#x414;&quot;."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="instruction4Label">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="4. &#x414;&#x430;&#x43b;&#x435;&#x435; &#x432;&#x43e;&#x437;&#x43c;&#x43e;&#x436;&#x43d;&#x43e; &#x437;&#x430;&#x43f;&#x43e;&#x43b;&#x43d;&#x438;&#x442;&#x44c; &#x431;&#x430;&#x437;&#x443; &#x434;&#x430;&#x43d;&#x43d;&#x44b;&#x445;."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="instructionLabel">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&#x418;&#x43d;&#x441;&#x442;&#x440;&#x443;&#x43a;&#x446;&#x438;&#x44f;"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="exceptionLabel">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="10" style="3"/>
             </Property>
           </Properties>
         </Component>
