@@ -9,10 +9,12 @@ package mephi2023.mavenproject1.workWithTable;
  * @author Kseny
  */
 public class Exemplar {
-    String name;
-    Double annuel_fuel;
+    private String name;
+    private Double annuel_fuel;
 
     public Exemplar() {
+        name = "";
+        annuel_fuel = 0.0;
     }
 
     public Exemplar(String name, Double annuel_fuel) {

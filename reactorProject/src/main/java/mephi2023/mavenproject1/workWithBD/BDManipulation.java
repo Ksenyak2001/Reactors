@@ -19,12 +19,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import mephi2023.mavenproject1.workWithCollection.CollectionManipulation;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -99,10 +101,9 @@ public class BDManipulation {
         pstmt.close();
     }
     
-    public static void fillBd(Connection conn, String fileName, CollectionManipulation cm) throws FileNotFoundException, IOException, SQLException{
+    public static void fillBd(Connection conn, String fileName, CollectionManipulation cm) throws FileNotFoundException, IOException, SQLException, InvalidFormatException{
         File file = new File(fileName);
-        FileInputStream fis = new FileInputStream(file);
-        Workbook workbook = WorkbookFactory.create(fis);
+        Workbook workbook = new XSSFWorkbook(file);
         int sequenceNumbers[] = {3,2,4,1,0};
         for (int i : sequenceNumbers) {
             Sheet sheet = workbook.getSheetAt(i);
@@ -160,6 +161,7 @@ public class BDManipulation {
             }
             pstmt.close();
         }
+        System.out.println("«аполнили базу, теперь обновл€ем данные");
         updateDefaultValuesBd(conn);
         updateClassBd(conn);
         updateBurnupBd(conn, cm);

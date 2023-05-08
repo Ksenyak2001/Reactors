@@ -16,7 +16,7 @@ import java.util.Map;
  * @author Kseny
  */
 public class ConnectBD {
-    private Connector connector;
+    private final Connector connector;
     public ConnectBD(){
         connector = new Connector () {
             @Override

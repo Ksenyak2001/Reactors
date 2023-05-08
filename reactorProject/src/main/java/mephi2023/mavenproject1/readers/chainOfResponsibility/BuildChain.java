@@ -15,9 +15,9 @@ import mephi2023.mavenproject1.workWithCollection.Reactor;
  * @author Kseny
  */
 public class BuildChain {
-    Handler h1;
-    Handler h2;
-    Handler h3;
+    private final Handler h1;
+    private final Handler h2;
+    private final Handler h3;
     public BuildChain(){
         h1 = new JsonHandler();
         h2 = new YamlHandler();
